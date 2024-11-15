@@ -1,0 +1,132 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "CloudFormation template to create IAM role and policies"
+
+Parameters:
+  RoleName:
+    Type: String
+    Description: The name of the IAM Role
+    Default: "AxoniusRole"
+  RootAccountId:
+    Type: String
+    Description: The AWS account ID where the IAM User exists
+  UserName:
+    Type: String
+    Description: The IAM User name that will assume the role
+
+Resources:
+  AxoniusRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      RoleName: !Ref RoleName
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS: !Sub "arn:aws:iam::${RootAccountId}:user/${UserName}"    # Directly reference the AxoniusUser ARN here
+            Action: 'sts:AssumeRole'
+      MaxSessionDuration: 14400
+      Path: /
+      Policies:
+        - PolicyName: "axonius-Readonly-policy"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Sid: "VisualEditor0"
+                Effect: "Allow"
+                Action:
+                  - "acm:Describe*"
+                  - "acm:List*"
+                  - "aoss:BatchGet*"
+                  - "aoss:List*"
+                  - "autoscaling:Describe*"
+                  - "batch:Describe*"
+                  - "batch:List*"
+                  - "bedrock:Get*"
+                  - "bedrock:List*"
+                  - "cloudformation:Describe*"
+                  - "cloudformation:Get*"
+                  - "cloudformation:List*"
+                  - "cloudfront:Get*"
+                  - "cloudfront:ListDistributions*"
+                  - "cloudtrail:Describe*"
+                  - "cloudtrail:Get*"
+                  - "cloudtrail:List*"
+                  - "cloudtrail:LookupEvents"
+                  - "cloudwatch:Describe*"
+                  - "cloudwatch:GetMetric*"
+                  - "cloudwatch:ListMetrics"
+                  - "cognito-idp:ListResourcesForWebACL"
+                  - "cognito-sync:GetCognitoEvents"
+                  - "config:Describe*"
+                  - "dynamodb:Describe*"
+                  - "dynamodb:List*"
+                  - "ec2:Describe*"
+                  - "ecr:Describe*"
+                  - "ecr:GetRegistryScanningConfiguration"
+                  - "ecr:GetRepositoryPolicy"
+                  - "ecr:List*"
+                  - "ecr:StartImageScan"
+                  - "ecr-public:Describe*"
+                  - "ecr-public:GetRepositoryPolicy"
+                  - "ecr-public:List*"
+                  - "ecs:Describe*"
+                  - "ecs:List*"
+                  - "eks:Describe*"
+                  - "eks:List*"
+                  - "elasticache:Describe*"
+                  - "elasticache:List*"
+                  - "elasticbeanstalk:Describe*"
+                  - "elasticbeanstalk:List*"
+                  - "elasticfilesystem:Describe*"
+                  - "elasticloadbalancing:Describe*"
+                  - "elasticmapreduce:Describe*"
+                  - "elasticmapreduce:List*"
+                  - "es:Describe*"
+                  - "es:List*"
+                  - "events:ListRules"
+                  - "iam:Generate*"
+                  - "iam:Get*"
+                  - "iam:List*"
+                  - "identitystore:Describe*"
+                  - "inspector2:List*"
+                  - "iot:GetTopicRule"
+                  - "kms:Describe*"
+                  - "kms:GetKey*"
+                  - "kms:List*"
+                  - "kinesis:Describe*"
+                  - "kinesis:List*"
+                  - "lambda:Get*Policy"
+                  - "lambda:GetAccountSettings"
+                  - "lambda:List*"
+                  - "logs:Describe*"
+                  - "organizations:Describe*"
+                  - "organizations:List*"
+                  - "rds:Describe*"
+                  - "rds:List*"
+                  - "redshift:Describe*"
+                  - "redshift:List*"
+                  - "route53:List*"
+                  - "s3:Get*"
+                  - "s3:List*"
+                  - "secretsmanager:Describe*"
+                  - "secretsmanager:Get*"
+                  - "secretsmanager:List*"
+                  - "securityhub:Batch*"
+                  - "securityhub:Get*"
+                  - "securityhub:List*"
+                  - "servicecatalog:List*"
+                  - "sns:List*"
+                  - "sqs:List*"
+                  - "ssm:Describe*"
+                  - "ssm:Get*"
+                  - "ssm:List*"
+                  - "states:List*"
+                  - "support:Describe*"
+                  - "tag:Get*"
+                  - "transfer:List*"
+                  - "waf-regional:List*"
+                  - "waf:List*"
+                  - "workmail:Describe*"
+                  - "workmail:List*"
+                Resource: "*"
