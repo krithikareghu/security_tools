@@ -8,7 +8,7 @@ locals {
     stackset_name    = "axonius-stackset"
     s3_user_bucket_key    = "axonius_user_tpl.yaml"
     s3_user_bucket_source = "../../../modules/axonius/cf_template/axonius_user_tpl.yaml"
-    user_name= "axonius-user-test-1"
+    user_name= "axonius-user-test"
     user_stack_name= "axonius-user-stack"
     excluded_ou_names = ["Security"] # OU names to exclude
 
